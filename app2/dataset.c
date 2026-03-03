@@ -1,26 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "dataset.h"
 
-int* createDataSet(int max_students)
+DS* createDataSet(int max_students)
 {
-  int *array = (int*)calloc(max_students, sizeof(int));
+  DS *ds = malloc(sizeof(DS));
+  assert(ds != NULL);
 
-  return array;
+  ds->array = (int*)calloc(max_students, sizeof(int));
+  assert(ds->array != NULL);
+
+  ds->max_students = max_students;
+
+  return ds;
 } 
 
-void deleteDataSet (int *array)
+void deleteDataSet (DS* ds)
 {
-  free(array);
+  assert(ds != NULL);
+
+  free(ds->array);
+  free(ds);
 
   return;
 }
 
-void searchID (int* array, int id)
+void searchID (DS* ds, int id)
 {
-  if(array[id - 1] != 0)
+  assert(ds != NULL);
+
+  if(ds->array[id - 1] != 0)
   {
-    printf("Student ID#%d found; Age: %d\n", id, array[id - 1]);
+    printf("Student ID#%d Found; Age: %d\n", id, ds->array[id - 1]);
 
     return;
   }
@@ -32,19 +44,23 @@ void searchID (int* array, int id)
   return;
 }
 
-void insertion (int *array, int id, int age)
+void insertion (DS* ds, int id, int age)
 {
-  array[id - 1] = age;
+  assert(ds != NULL && id > 0 && id < ds->max_students);
+
+  ds->array[id - 1] = age;
 
   return;
 }
 
-void deletion (int *array, int id)
+void deletion (DS* ds, int id)
 {
-  if(array[id - 1] != 0)
-  {
-    array[id - 1] = 0;
-    printf("Student ID#%d Deleted\n", id);
+  assert(ds != NULL);
+  if(ds->array[id - 1] != 0)
+  { 
+    int temp_age = ds->array[id - 1];
+    ds->array[id - 1] = 0;
+    printf("Student ID#%d Deleted; Age: %d\n", id, temp_age);
     
     return;
   }

@@ -1,10 +1,16 @@
 #ifndef DATASETH
 #define DATASETH
 
-int* createDataSet (int max_students);
-void deleteDataSet (int *array);
-void searchID (int *array, int id);
-void insertion (int *array, int id, int age);
-void deletion (int *array, int id);
+typedef struct ds {
+  int* array;
+  int max_students;
+} DS;
+
+
+DS* createDataSet (int max_students);
+void deleteDataSet (DS *ds);
+void searchID (DS *ds, int id);
+void insertion (DS *ds, int id, int age);
+void deletion (DS *ds, int id);
 
 #endif

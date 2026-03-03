@@ -9,25 +9,26 @@ int main (void)
 {
   srand(time(NULL));
 
-  int *array = createDataSet(max_ids);
+  DS *ds = createDataSet(max_ids);
 
-  int id = 0;
+  int id = rand() % 2 + 1;
+  int age = rand() % (30 - 18 + 1) + 18;
+  insertion(ds, id, age);
 
-  for (int i = 0; i<1000; i++)
+  for (int i = 1; i<1000; i++)
   {
-    int prev_id = rand() % 2 + 1;
-    id = id + prev_id;
-    int age = rand() % (30 - 18 + 1) + 18;
-    insertion(array, id, age);
+    id = id + rand() % 2 + 1;
+    age = rand() % (30 - 18 + 1) + 18;
+    insertion(ds, id, age);
   }
 
   int random_id = rand() % (2000) + 1;
 
-  searchID (array, random_id);
+  searchID (ds, random_id);
 
-  deletion (array, random_id);
+  deletion (ds, random_id);
 
-  deleteDataSet (array);
+  deleteDataSet (ds);
 
   return 0;
 
