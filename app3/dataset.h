@@ -14,7 +14,7 @@ typedef struct ds {
   NODE** lp;
 } DS;
 
-DS createDataSet (void);
+DS* createDataSet (void);
 void destroyDataSet (DS *ds);
 void searchAge (DS *ds, int age);
 void searchID (DS *ds, int id);
