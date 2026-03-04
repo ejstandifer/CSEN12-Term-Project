@@ -11,7 +11,7 @@ typedef struct node {
 
 
 typedef struct ds {
-  NODE** lp;
+  NODE** lists;
 } DS;
 
 DS* createDataSet (void);

@@ -3,21 +3,24 @@
 #include <assert.h>
 #include "dataset.h"
 
+#define arr_offset 18
+#define num_lists 13
+#define max_age 30
 
 DS* createDataSet(void)
 {
   DS *ds;
   ds = malloc(sizeof(DS));
   assert(ds != NULL);
-  ds->lp = malloc(13 * sizeof(NODE*));
-  assert(ds->lp != NULL);
-  for(int i = 0; i<13; i++)
+  ds->lists = malloc(num_lists * sizeof(NODE*));
+  assert(ds->lists != NULL);
+  for(int i = 0; i<num_lists; i++)
   {
-    ds->lp[i] = (NODE*)malloc(sizeof(NODE));
-    ds->lp[i]->id = 0;
-    ds->lp[i]->age = 0;
-    ds->lp[i]->next = ds->lp[i];
-    ds->lp[i]->prev = ds->lp[i];
+    ds->lists[i] = (NODE*)malloc(sizeof(NODE));
+    ds->lists[i]->id = 0;
+    ds->lists[i]->age = 0;
+    ds->lists[i]->next = ds->lists[i];
+    ds->lists[i]->prev = ds->lists[i];
   }
   return ds;
 
@@ -27,9 +30,9 @@ void destroyDataSet(DS *ds)
 {
   assert (ds != NULL);
 
-  for(int i = 0; i<13; i++)
+  for(int i = 0; i<num_lists; i++)
   {
-    NODE *head = ds->lp[i];
+    NODE *head = ds->lists[i];
     NODE *current = head->next;
     NODE *next;
 
@@ -41,7 +44,7 @@ void destroyDataSet(DS *ds)
     }
     free(head);
   }
-  free(ds->lp);
+  free(ds->lists);
   free(ds);
   return;
 }
@@ -50,7 +53,7 @@ void searchAge(DS *ds, int age)
 {
   assert(ds != NULL);
 
-  NODE *head = ds->lp[age - 18];
+  NODE *head = ds->lists[age - arr_offset];
   NODE *current = head->next;
 
   if(head->next == head)
@@ -71,14 +74,10 @@ void searchID(DS *ds, int search_id)
 {
  assert(ds != NULL);
 
- for(int i = 0; i<13; i++)
+ for(int i = 0; i<num_lists; i++)
  {
-   NODE *head = ds->lp[i];
+   NODE *head = ds->lists[i];
 
-   if(head->next->id > search_id || head->prev->id < search_id)
-   {
-     continue;
-   }
    NODE* current = head->next;
 
    while(current != head)
@@ -87,6 +86,11 @@ void searchID(DS *ds, int search_id)
      {
        printf("Student #%d Found; Age: %d\n", search_id, current->age);
        return;
+     }
+
+     if(current->id < search_id)
+     {
+       break;
      }
      current = current->next;
    }
@@ -105,7 +109,7 @@ void insertion (DS *ds, int new_id, int new_age)
   new->id = new_id;
   new->age = new_age;
 
-  NODE *head = ds->lp[new_age - 18];
+  NODE *head = ds->lists[new_age - arr_offset];
   new->next = head->next;
   new->prev = head;
   head->next = new;
@@ -119,14 +123,10 @@ void deletion (DS *ds, int search_id)
 {
  assert(ds != NULL);
 
- for(int i = 0; i<13; i++)
+ for(int i = 0; i<num_lists; i++)
  {
-   NODE *head = ds->lp[i - 18];
+   NODE *head = ds->lists[i];
 
-   if(head->next->id > search_id || head->prev->id < search_id)
-   {
-     continue;
-   }
    NODE* current = head->next;
 
    while(current != head)
@@ -138,14 +138,19 @@ void deletion (DS *ds, int search_id)
        current->next->prev = current->prev;
        free(current);
 
-       printf("Deleted Student#%d\n", temp);
+       printf("Deleted Student #%d\n", temp);
       
        return;
+     }
+
+     if(current->id < search_id)
+     {
+       break;
      }
      current = current->next;
     }
   }
-  printf("Student#%d Not Found\n", search_id);
+  printf("Student #%d Not Found; Deletion Unsuccessful\n", search_id);
   return;
   
 }
@@ -154,23 +159,23 @@ void maxAgeGap (DS *ds)
 {
   assert(ds != NULL);
 
-  int min = 0;
-  int max = 0;
+  int min = max_age + 1;
+  int max = arr_offset - 1;
 
-  for(int i = 0; i<13; i++)
+  for(int i = 0; i<num_lists; i++)
   {
-    NODE *head = ds->lp[i];
+    NODE *head = ds->lists[i];
 
     if(head->next != head)
     {
-      if((i + 18) < min)
+      if((i + arr_offset) < min)
       {
-        min = i + 18;
+        min = i + arr_offset;
       }
 
-      if((i + 18) > max)
+      if((i + arr_offset) > max)
       {
-        max = i + 18;
+        max = i + arr_offset;
       }
     }
   }
