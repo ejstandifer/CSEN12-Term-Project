@@ -7,7 +7,7 @@ int main (void)
 {
   srand(time(NULL));
 
-  DS *ds = createDataSet(void);
+  DS *ds = createDataSet();
 
   int id = rand() % 2 + 1;
   int age = rand() % (30 - 18 + 1) + 18;
@@ -28,7 +28,7 @@ int main (void)
 
   maxAgeGap (ds);
 
-  deleteDataSet (ds);
+  destroyDataSet (ds);
 
   return 0;
 

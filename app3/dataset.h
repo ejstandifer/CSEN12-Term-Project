@@ -9,13 +9,12 @@ typedef struct node {
   struct node *prev;
 } NODE;
 
+
 typedef struct ds {
-  NODE* lp;
-  int min_age;
-  int max_age;
+  NODE** lp;
 } DS;
 
-ds createDataSet (void);
+DS createDataSet (void);
 void destroyDataSet (DS *ds);
 void searchAge (DS *ds, int age);
 void searchID (DS *ds, int id);
