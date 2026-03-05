@@ -1,11 +1,22 @@
+//By: Eddie Standifer
+//
+//CSEN 12 Term Project Due: 3/6/26
+//App 2 dataset.c
+//
+//Implementation of functions pertaining to app 2 requirements using an
+//array of doubly circular linked lists, each element corresponding to a list 
+//of students of a given age (13 elements total). New nodes are inserted after a dummy head node.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include "dataset.h"
 
-#define arr_offset 18
+#define arr_offset 18 //offset array when indexing to align with age values 18-30
 #define num_lists 13
 #define max_age 30
+
+//Creates dataset by allocated memory to the array of LL
 
 DS* createDataSet(void)
 {
@@ -25,6 +36,8 @@ DS* createDataSet(void)
   return ds;
 
 }
+
+//Destroys dataset by freeing each LL and then freeing associated pointers
 
 void destroyDataSet(DS *ds)
 {
@@ -49,6 +62,8 @@ void destroyDataSet(DS *ds)
   return;
 }
 
+//Searches for all students with a given age by going into the respective LL and printing all nodes
+
 void searchAge(DS *ds, int age)
 {
   assert(ds != NULL);
@@ -69,6 +84,8 @@ void searchAge(DS *ds, int age)
   }
   return;
 }
+
+//Finds student ID by searching through entire array of LL. Optimized to skip list if given ID is out of bounds  
 
 void searchID(DS *ds, int search_id)
 {
@@ -100,6 +117,8 @@ void searchID(DS *ds, int search_id)
  return;
 }
 
+//Inserts new node after head at corresponding list based on age
+
 void insertion (DS *ds, int new_id, int new_age)
 {
   assert(ds != NULL);
@@ -118,6 +137,8 @@ void insertion (DS *ds, int new_id, int new_age)
   return;
 
 }
+
+//Deletes node with matching student id
 
 void deletion (DS *ds, int search_id)
 {
@@ -154,6 +175,8 @@ void deletion (DS *ds, int search_id)
   return;
   
 }
+
+//Calculates maxAgeGap by iterating through the array and keeping track of min and max elt filled
 
 void maxAgeGap (DS *ds)
 {

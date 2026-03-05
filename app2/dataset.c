@@ -1,7 +1,20 @@
+//By: Eddie Standifer
+//
+//CSEN 12 Term Project Due: 3/6/26
+//App 2 dataset.c
+//
+//Implemntation of functions pertaining to app 2 requirements using a
+//calloced array size 3000, where each index of the array corresponds
+//to stundet ID#
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include "dataset.h"
+
+//Creates dataset ptr and allocates memory for the array. Calloc needed
+//to zero out elemenets
 
 DS* createDataSet(int max_students)
 {
@@ -16,6 +29,8 @@ DS* createDataSet(int max_students)
   return ds;
 } 
 
+//Deletes dataset by freeing pointers
+
 void deleteDataSet (DS* ds)
 {
   assert(ds != NULL);
@@ -25,6 +40,8 @@ void deleteDataSet (DS* ds)
 
   return;
 }
+
+//Finds student by accessing [id - 1] in the array
 
 void searchID (DS* ds, int id)
 {
@@ -44,6 +61,8 @@ void searchID (DS* ds, int id)
   return;
 }
 
+//Inserts new student into the array[i - 1]
+
 void insertion (DS* ds, int id, int age)
 {
   assert(ds != NULL && id > 0 && id < ds->max_students);
@@ -52,6 +71,9 @@ void insertion (DS* ds, int id, int age)
 
   return;
 }
+
+
+//Looks for student id# at array[i - 1] and sets elt to 0 if found
 
 void deletion (DS* ds, int id)
 {

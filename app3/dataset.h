@@ -1,6 +1,7 @@
 #ifndef DATASETH
 #define DATASETH
 
+//Data Type Declartation
 typedef struct node {
 
   int age;
@@ -9,6 +10,7 @@ typedef struct node {
   struct node *prev;
 } NODE;
 
+//Functions 
 
 typedef struct ds {
   NODE** lists;
