@@ -1,17 +1,18 @@
-App 3 was implemented using an array of circular doubly linked lists, with the indicies of the array acting as ages 18-30 and the nodes in each list containing the ID and age of the students (who are inserted as they are generated). This allows for O(1) inserations, deletions, and mex age gap calulations and O(m) age searches (where m is the number of nodes in a specific list in the array). This implementation is superior to a standard linked list as it allows for O(1) max age gap calculation and slighlty optimized age searches compared to linear time. This is likewise much faster than an array which would have to rely on logarithmic time binary search and shifting to maintain sortedness, or a hash table which could have O(n) insertions in the worst case when accounting for linear probing.
+App 3 was implemented using an array of circular doubly linked lists, with the indicies of the array acting as ages 18-30 and the nodes in each list containing the ID and age of the students (who are inserted as they are generated). This is essentially a direct address hash table using chaining to deal with new insertions. This allows for O(1) deletions, insertions, and mex age gap calulations and O(m) age searches (where m is the number of nodes in a specific list in the array). This implementation is superior to a standard linked list as it allows for O(1) max age gap calculation  optimized age searches compared to linear time (as you only need to search one LL, not every node). This is likewise much faster than an array which would have to rely on logarithmic time binary search and shifting to maintain sortedness, or a hash table with linear probing which could have O(n) insertions in the worst case.
 
 Function Time Complexities:
 
-createDataSet: O(n)
+createDataSet: O(1) -- (O(13) but simplifies to O(1) constant time
 
 destroyDataSet: O(n) (where n = number of nodes in the dataset)
 
 searchAge: O(m) (where m = number of nodes in a specific LL in the array)
 
-searchID: O(n)
+searchID: O(n) -- while worst case is O(n), expected case is O(k + 13) and best case is O(k), where k is the number of nodes
+in a given list
 
 insertion: O(1)
 
 deletion: O(1)
 
-maxAgeGap: O(1) (O(13) but simplifies to O(1) constant time)
+maxAgeGap: O(1) -- (O(13) but simplifies to O(1) constant time)

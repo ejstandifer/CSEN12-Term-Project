@@ -1,7 +1,7 @@
 //By: Eddie Standifer
 //CSEN 12 Term Project Due: 3/4/26
 //
-//App 2 college.c
+//App 3 college.c
 //
 //Main file that generates and inserts random student ids, searches and deletes a random student, prints max age gap, and then deletes the dataset
 

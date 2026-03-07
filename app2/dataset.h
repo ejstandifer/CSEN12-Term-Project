@@ -10,7 +10,7 @@ typedef struct ds {
 //Functions
 
 DS* createDataSet (int max_students);
-void deleteDataSet (DS *ds);
+void destroyDataSet (DS *ds);
 void searchID (DS *ds, int id);
 void insertion (DS *ds, int id, int age);
 void deletion (DS *ds, int id);

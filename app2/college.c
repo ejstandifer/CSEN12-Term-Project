@@ -37,7 +37,7 @@ int main (void)
 
   deletion (ds, random_id);
 
-  deleteDataSet (ds);
+  destroyDataSet (ds);
 
   return 0;
 

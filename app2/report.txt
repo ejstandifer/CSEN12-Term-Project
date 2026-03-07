@@ -1,9 +1,9 @@
 
-App 2 was implemented using an array (size 3000 corresponding to the maximum ID# value), where each index of the array corresponds to the a student ID#, and the index stores the respective student's age. This allows for O(1) lookup, insertion, deletion (via direct indextong while also keeping code extremely simple and readable (as opposed to a hash map implementation).
+App 2 was implemented using a direct indexing hash table via an array (size 3000 corresponding to the maximum ID# value), where each index of the array corresponds to the a student ID#, and the index stores the respective student's age. This allows for O(1) lookup, insertion, deletion (via direct indexing with 0 collisions) while also keeping code extremely simple and readable (as opposed to a more traditional hash map implementation). 
 
 Time Complexity of Functions
 
-createDataSet: O(n) 
+createDataSet: O(n) -- where n is the size of the array: calloc needs to set all indicies to 0
 
 destroyDataSet: O(1)
 

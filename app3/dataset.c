@@ -1,11 +1,13 @@
 //By: Eddie Standifer
 //
 //CSEN 12 Term Project Due: 3/6/26
-//App 2 dataset.c
+//App 3 dataset.c
 //
 //Implementation of functions pertaining to app 2 requirements using an
 //array of doubly circular linked lists, each element corresponding to a list 
-//of students of a given age (13 elements total). New nodes are inserted after a dummy head node.
+//of students of a given age (Effectively a direect indexing hash table
+//using chaining to store elements, with each index being associated with students of a specific age).
+//New nodes are inserted after a dummy head node.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -95,6 +97,16 @@ void searchID(DS *ds, int search_id)
  {
    NODE *head = ds->lists[i];
 
+   if(head->next == head)
+   {
+      continue;
+   }
+
+   if(search_id > head->next->id || search_id < head->prev->id)
+   {
+      continue; //skip list if id isn't in bounds of first and last node ID
+   }
+
    NODE* current = head->next;
 
    while(current != head)
@@ -154,12 +166,13 @@ void deletion (DS *ds, int search_id)
    {
      if(current->id == search_id)
      {
-       int temp = current->id;
+       int temp_id = current->id;
+       int temp_age = current->age;
        current->prev->next = current->next;
        current->next->prev = current->prev;
        free(current);
 
-       printf("Deleted Student #%d\n", temp);
+       printf("Deleted Student #%d Age: %d\n", temp_id, temp_age);
       
        return;
      }
@@ -202,7 +215,6 @@ void maxAgeGap (DS *ds)
       }
     }
   }
-
   printf("Maximum Age Gap: %d\n", max - min);
   return;
 }

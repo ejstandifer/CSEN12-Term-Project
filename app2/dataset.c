@@ -5,7 +5,7 @@
 //
 //Implemntation of functions pertaining to app 2 requirements using a
 //calloced array size 3000, where each index of the array corresponds
-//to stundet ID#
+//to stundet ID#, (effectively a hash table with direct indexing)
 
 
 #include <stdio.h>
@@ -31,7 +31,7 @@ DS* createDataSet(int max_students)
 
 //Deletes dataset by freeing pointers
 
-void deleteDataSet (DS* ds)
+void destroyDataSet (DS* ds)
 {
   assert(ds != NULL);
 
@@ -45,7 +45,7 @@ void deleteDataSet (DS* ds)
 
 void searchID (DS* ds, int id)
 {
-  assert(ds != NULL);
+  assert(ds != NULL && id > 0 && id <= ds->max_students);
 
   if(ds->array[id - 1] != 0)
   {
@@ -65,7 +65,7 @@ void searchID (DS* ds, int id)
 
 void insertion (DS* ds, int id, int age)
 {
-  assert(ds != NULL && id > 0 && id < ds->max_students);
+  assert(ds != NULL && id > 0 && id <= ds->max_students);
 
   ds->array[id - 1] = age;
 
